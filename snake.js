@@ -1,3 +1,4 @@
+
 var snakebBoard = document.getElementById('snake-board');
   for(var i=0; i<400; i++  ) {
 
