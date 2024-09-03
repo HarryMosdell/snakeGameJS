@@ -1,20 +1,20 @@
-
 var snakebBoard = document.getElementById('snake-board');
   for(var i=0; i<100; i++  ) {
 
     snakebBoard.innerHTML += "<div class='snake-grid-column'></div>";
   }
   
-  
+
 var snake= document.getElementById('snake');
 var apple= document.getElementById('apple');
 var snakeBoard= document.getElementById('snake-board');
+var gameScore = 0;
 var applePositionX= applePositionX;
 var applePositionY= applePositionY;
 var SnakePositionX = SnakePositionX;
 var SnakePositionY= SnakePositionY;
-var xSpeed = 50;
-var ySpeed= 50;
+var xSpeed = 1;
+var ySpeed= 1;
 var snakeDirection=snakeDirection;
 // call the move functions 
 
@@ -107,11 +107,33 @@ function moveLeft () {
    
    } 
     drawApple();
-
+    
+    //this function will check for collision between the snake and the apple
     function checkCollison() {
-
+        var applePostionRoundedX= Math.round(applePositionX);
+        var SnakePostionRoundedX= Math.round(SnakePositionX);
+        var applePostionRoundedY= Math.round(applePositionY);
+        var SnakePostionRoundedY= Math.round(SnakePositionY);
+        
+      if( applePostionRoundedX ==  SnakePostionRoundedX && applePostionRoundedY ==  SnakePostionRoundedY  ) {
+         console.log("collison!");
+         drawApple();
+         gameScore++;
+       var score =  document.getElementById("game-score");
+       score.innerHTML="SCORE " + gameScore;
+      }
+      else {
+   
+       console.log(" SNAKE  POSITION X IS"  + SnakePostionRoundedX);
+       console.log(" SNAKE  POSITION Y IS"  + SnakePostionRoundedY);
+       console.log( " APPLE  POSITION X IS"  +applePostionRoundedX);
+       console.log( " APPLE  POSITION Y IS"  + applePostionRoundedY);
+      }
     }
-var gamePlaying= setInterval(1000);
+
+   
+
+var gamePlaying= setInterval(checkCollison,100);
 
 
  //this function ends the game
