@@ -1,10 +1,15 @@
+<script> 
+
+
 var snakebBoard = document.getElementById('snake-board');
-  for(var i=0; i<100; i++  ) {
+  for(var i=0; i<400; i++  ) {
 
     snakebBoard.innerHTML += "<div class='snake-grid-column'></div>";
   }
   
-
+var blockSize=20;
+var rows =20; 
+var cols =20; 
 var snake= document.getElementById('snake');
 var apple= document.getElementById('apple');
 var snakeBoard= document.getElementById('snake-board');
@@ -13,8 +18,8 @@ var applePositionX= applePositionX;
 var applePositionY= applePositionY;
 var SnakePositionX = SnakePositionX;
 var SnakePositionY= SnakePositionY;
-var xSpeed = 1;
-var ySpeed= 1;
+var xSpeed = 20;
+var ySpeed= 20;
 var snakeDirection=snakeDirection;
 // call the move functions 
 
@@ -99,8 +104,8 @@ function moveLeft () {
     }
 
    function drawApple() {
-     applePositionX=Math.random() * snakeBoard.offsetWidth  ; 
-     applePositionY=Math.random() * snakeBoard.offsetHeight ;
+     applePositionX=   Math.floor(Math.random ()* cols) * blockSize; 
+     applePositionY= Math.floor(Math.random ()* rows) *blockSize;
      apple.style.left= applePositionX +"px" ;
      apple.style.top= applePositionY +"px" ;
      console.log(applePositionX);
@@ -133,7 +138,7 @@ function moveLeft () {
 
    
 
-var gamePlaying= setInterval(checkCollison,100);
+var gamePlaying= setInterval(checkCollison,1000);
 
 
  //this function ends the game
@@ -145,3 +150,6 @@ function gameOver() {
   screen.classList.toggle("d-none");
 
 }
+
+
+</script>
