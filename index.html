@@ -32,7 +32,6 @@
  
  
     .snake-board {
-        
         border: 4px solid black;
         display:grid; 
         background-color: aqua;
@@ -53,7 +52,18 @@
         height:20px;
         width:20px;
         background-color: green;
-      
+        z-index: 3;
+        
+        
+    }
+
+    .snakeBody {
+        position: absolute;
+        height:20px;
+        width:20px;
+        background-color: green;
+        z-index: 3;
+        top:0px;
         
     }
 
@@ -61,7 +71,7 @@
         background-color: red;
         width: 20px;
         height: 100%;
-        position: absolute;
+        position: relative;
         left:100%;
        
     }
@@ -138,6 +148,7 @@ var SnakePositionY= SnakePositionY;
 var xSpeed = 20;
 var ySpeed= 20;
 var snakeDirection=snakeDirection;
+var snakeParts= [];
 // call the move functions 
 
 
@@ -145,22 +156,22 @@ document.addEventListener('keydown', function(event) {
    
     if(event.keyCode == 39) {
     clearInterval(snakeDirection);
-    snakeDirection=setInterval(moveRight,1000);
+    snakeDirection=setInterval(moveRight,100);
     }
     
     if(event.keyCode == 37) {
     clearInterval(snakeDirection);
-    snakeDirection=setInterval(moveLeft,1000);   
+    snakeDirection=setInterval(moveLeft,100);   
     }
 
     if(event.keyCode == 40) {
     clearInterval(snakeDirection);
-    snakeDirection=setInterval(moveDown,1000);
+    snakeDirection=setInterval(moveDown,100);
     }
 
     if(event.keyCode == 38) {
     clearInterval(snakeDirection);
-    snakeDirection=setInterval(moveUp,1000);
+    snakeDirection=setInterval(moveUp,100);
     }
 });
 
@@ -200,7 +211,7 @@ function moveLeft () {
     snake.style.top = SnakePositionY + 'px';
     //console.log(SnakePositionY);
         
-     if (SnakePositionY >500) {
+     if (SnakePositionY >400) {
         console.log("game over");
         gameOver();
      } 
@@ -241,21 +252,33 @@ function moveLeft () {
          console.log("collison!");
          drawApple();
          gameScore++;
+         snakeParts.push(applePostionRoundedX,applePostionRoundedY);
+         console.log(snakeParts);
+         for ( let i=0;  i < snakeParts.length; i++ ) {
+
+            var snakeBodyPart = document.createElement('div');
+            snake.appendChild(snakeBodyPart);
+            snakeBodyPart.className = "snakeBody";
+            snakeBodyPart.style.right= i * 20 + 'px';
+           
+
+         }
        var score =  document.getElementById("game-score");
+       
        score.innerHTML="SCORE " + gameScore;
       }
       else {
    
-       console.log(" SNAKE  POSITION X IS"  + SnakePostionRoundedX);
-       console.log(" SNAKE  POSITION Y IS"  + SnakePostionRoundedY);
-       console.log( " APPLE  POSITION X IS"  +applePostionRoundedX);
-       console.log( " APPLE  POSITION Y IS"  + applePostionRoundedY);
+      // console.log(" SNAKE  POSITION X IS"  + SnakePostionRoundedX);
+      // console.log(" SNAKE  POSITION Y IS"  + SnakePostionRoundedY);
+      // console.log( " APPLE  POSITION X IS"  +applePostionRoundedX);
+      // console.log( " APPLE  POSITION Y IS"  + applePostionRoundedY);
       }
     }
 
    
 
-var gamePlaying= setInterval(checkCollison,1000);
+var gamePlaying= setInterval(checkCollison,100);
 
 
  //this function ends the game
